@@ -37,10 +37,24 @@ def text_from_voice(file):
 def voice_from_text(text, path):
     filepath = "{}/speech_{}.wav".format(path, str(uuid.uuid1().hex))
     if os.path.isfile(filepath): os.remove(filepath)
+
+    ssml_string = """
+<speak version="1.0" xmlns="http://www.w3.org/2001/10/synthesis"
+    xmlns:mstts="https://www.w3.org/2001/mstts" xml:lang="en-US">
+  <voice name="en-US-JennyNeural">
+    <mstts:express-as style="chat">
+      {}
+    </mstts:express-as>
+  </voice>
+</speak>
+    """.format(text)
     
     speech_config = speechsdk.SpeechConfig(subscription=api_keys["microsoft-speech"]["key"], region=api_keys["microsoft-speech"]["region"])
-    audio_config = AudioOutputConfig(filename=filepath)
-    synthesizer = SpeechSynthesizer(speech_config=speech_config, audio_config=audio_config)
+    # audio_config = AudioOutputConfig(filename=filepath)
+    synthesizer = SpeechSynthesizer(speech_config=speech_config, audio_config=None)
+    result = synthesizer.speak_ssml_async(ssml_string).get()
+    stream = AudioDataStream(result)
+    stream.save_to_wav_file(filepath)
     synthesizer.speak_text_async(text)
 
     return filepath
