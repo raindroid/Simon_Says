@@ -1,2 +1,3 @@
 django
 azure-cognitiveservices-speech
+ibm-watson>=5.0.0
