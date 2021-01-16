@@ -1,29 +1,3 @@
-"""
-curl -X POST -u "apikey:9bgDGQmyUo_CuLsJWT0Lv_5g_GBe1P7M2K1JeuAaTudF" \
---header "Content-Type: application/json" \
---data '{
-  "text": "I love apples! I do not like oranges.",
-  "features": {
-    "sentiment": {
-      "targets": [
-        "apples",
-        "oranges",
-        "broccoli"
-      ]
-    },
-    "keywords": {
-      "emotion": true
-    }
-  }
-}' \
-"https://api.us-south.natural-language-understanding.watson.cloud.ibm.com/instances/6a673e6b-2096-4737-873a-c905fd17603a/v1/analyze?version=2019-07-12"
-
-curl -X POST -u "apikey:TawcICq8sXEf1J9ySZ9zxXhvRtm9JLPvxAZsEmEK-npK" \
---header "Content-Type: application/json" \
---data-binary @tone.json \
-"https://api.us-south.tone-analyzer.watson.cloud.ibm.com/instances/5edd1dce-a69b-4ac2-b3aa-bac2656cd7b3/v3/tone_chat?version=2017-09-21&sentences=false"
-"""
-
 import json
 from ibm_watson import NaturalLanguageUnderstandingV1
 from ibm_cloud_sdk_core.authenticators import IAMAuthenticator
