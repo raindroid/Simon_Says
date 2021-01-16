@@ -21,5 +21,15 @@ from . import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.index),
-    path('apis/', include("myapi.urls"))
+    path('apis/', include("myapi.urls")),
 ]
+
+react_router_paths = (
+    "home",
+    "activities",
+    "goals",
+    "help",
+)
+
+for subpath in react_router_paths:
+    urlpatterns.append(path("{}/".format(subpath), views.index))
