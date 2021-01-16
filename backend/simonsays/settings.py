@@ -25,7 +25,7 @@ SECRET_KEY = 'xp4(%(87xou=2*+*1d*2ke&w@(4+%0z5qa0yp^j91ob0ua*zns'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['simon-says.space']
 
 
 # Application definition
