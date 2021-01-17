@@ -4,7 +4,82 @@ import teddy from "../images/Simon ChatBot (Green).png";
 import moment from "moment";
 import React, { Component } from "react";
 import '../App.css'
+import { testFunc } from "./api/generalAPI";
+import { Button, TextField } from "@material-ui/core";
+import { createUserWithEmailAndPassword, signinWithEmail, signinWithGoogle } from "./account/firebase";
+import GoogleButton from 'react-google-button';
+
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogContentText from '@material-ui/core/DialogContentText';
+import DialogTitle from '@material-ui/core/DialogTitle';
+import { accountInfo } from "./account/firebase";
+
+export function LoginDialog() {
+  const [open, setOpen] = React.useState(false);
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+  
+  let data = {
+    name: "",
+    email: "",
+    password: ""
+  }  
+
+  const signup = (data) => {
+    createUserWithEmailAndPassword(data.name, data.email, data.password)
+    handleClose()
+  }
+  const signin = (data) => {
+    signinWithEmail(data.email, data.password)
+    handleClose()
+  }
+
+  return (
+    <div>
+      <Button variant="outlined" color="primary" onClick={handleClickOpen}>
+        {accountInfo.signed ? accountInfo.name : "Sign in / sign up"}
+      </Button>
+      <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
+        <DialogTitle id="form-dialog-title">Subscribe</DialogTitle>
+        <DialogContent>
+          <DialogContentText>
+            To subscribe to this website, please enter your email address here. We will send updates
+            occasionally.
+          </DialogContentText>
+          <TextField id="standard-basic" label="name" onChange={e=>{data.name=e.target.value}}/>
+          <TextField id="standard-basic" label="email" onChange={e=>{data.email=e.target.value}}/>
+          <TextField id="standard-basic" label="password" type="password" onChange={e=>{data.password=e.target.value}}/>
+          <Button variant="contained" color="secondary" onClick={()=>signup(data)}>
+            Sign Up
+          </Button>
+          <Button variant="contained" color="secondary" onClick={()=>signin(data)}>
+            Sign In
+          </Button>
+          <GoogleButton
+            onClick={ ()=>{signinWithGoogle(data); handleClose();} }
+          />
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleClose} color="primary">
+            Cancel
+          </Button>
+        </DialogActions>
+      </Dialog>
+    </div>
+  );
+}
+
 class Home extends Component {
+  
+
   state = {
     date: new Date(),
   };
@@ -15,6 +90,8 @@ class Home extends Component {
     }, 1000);
   }
 
+  
+
   render() {
     return (
       <>
@@ -24,7 +101,8 @@ class Home extends Component {
             <div className="col-6 mx-auto">
             </div>
             <div className="col-4 mx-auto">
-              {/* <h3>Account</h3> */}
+            <LoginDialog />
+              
             </div>
           </div>
 
