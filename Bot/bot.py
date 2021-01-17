@@ -50,10 +50,12 @@ finisher = 'It was really nice talking to you and I hope that now you'\
            'endeavours. Bye!'
 
 def friends():
-    response = input('How are your friends meeting up with your expectations?'\
-                     '\n')
+    print('How are your friends meeting up with your expectations?'\
+                     '')
+    response = input()
     if(predict(response) >=0.4):
-        response = input('Have you broken up with someone recently?\n')
+        print('Have you broken up with someone recently?')
+        response = input()
         if(predict(response)>=0.4):
             print(name + ", don't feel sad. Take your time and heal properly,"\
                   " look at what's happened, learn from it, and find ways to "\
@@ -113,14 +115,17 @@ def work():
     print(finisher)
 
 def sad1():
-    response = input('I understand. Seems like something\'s bothering you. '\
-                     'Could you further describe it, in short?\n')
+    print('I understand. Seems like something\'s bothering you. '\
+                     'Could you further describe it, in short?')
+    response = input()
     if(predict(response)>=0.4):
-        response = input('It seems like though the issue might be a little '\
+        print('It seems like though the issue might be a little '\
                          'worrisome, it might not actually be very serious. '\
-                         'What are your thoughts on this?\n')
+                         'What are your thoughts on this?')
+        response = input()
         if(predict(response)>=0.5):
-            response = input('Looks like you agree with me. Wanna sign off?\n')
+            print('Looks like you agree with me. Wanna sign off?')
+            response = input()
             if(predict(response)>0.55):
                 print("That's okay. It was nice talking to you. You can chat "\
                       "with me anytime you want.\nBye " + name + "!")
@@ -132,12 +137,15 @@ def sad1():
         sad2()
 
 def sad2():
-    response = input('Please feel free to share your feelings ' + name +\
-                     ', think of me as your friend.\n')
+    print('Please feel free to share your feelings ' + name +\
+                     ', think of me as your friend.')
+    response = input()
     if(predict(response)>=0.3):
-        response = input('I see. Among the thoughts occuring in your mind, '\
-                         'which one upsets you the most?\n')
-        response = input('Why do you think it upsets you?\n')
+        print('I see. Among the thoughts occuring in your mind, '\
+                         'which one upsets you the most?')
+        response = input()
+        print('Why do you think it upsets you?')
+        response = input()
         print("Okay. You just identified what we call an automatic thought. "\
               "Everyone has them. They are thoughts that immediately pop to "\
               "mind without any effort on your part.\nMost of the time the "\
@@ -147,8 +155,9 @@ def sad2():
               "thoughts are distorted in some way but we usually don't stop "\
               "to question the validity of the thought. But today, that's "\
               "what we are going to do.")
-        response = input('So, ' + name + ', are there signs that contrary '\
-                         'could be true?\n')
+        print('So, ' + name + ', are there signs that contrary '\
+                         'could be true?')
+        response = input()
         if(predict(response)>=0.4):
             print("I'm glad that you realised that the opposite could be "\
                   "true. The reason these are called 'false beliefs' is "\
@@ -165,12 +174,13 @@ def sad2():
         sad4()
 
 def sad3():
-    response = input('Feel comfortable. Could you briefly explain about your '\
-                     'day?\n')
-    response = input('What are the activities that make up your most of the '\
-                     'day?\n')
-    response = input('It looks like you might be feeling comfortable talking '\
-                     'about yourself. Could you share your feelings?\n')
+    print('Feel comfortable. Could you briefly explain about your '\
+                     'day?')
+    print('What are the activities that make up your most of the '\
+                     'day?')
+    print('It looks like you might be feeling comfortable talking '\
+                     'about yourself. Could you share your feelings?')
+    response = input()
     if(predict(response)>=0.3):
         sad2()
     else:
@@ -179,9 +189,12 @@ def sad3():
 def sad4():
     print("My sympathies. Looks like it might be a point of concern. Don't "\
           "worry, that's what I'm here for!")
-    response_friends = input('How are things going on with your friends?\n')
-    response_family  = input('How is your relationship with your parents?\n')
-    response_worklife = input('How is your work or academic life going on?\n')
+    print('How are things going on with your friends?')
+    response_friends = input()
+    print('How is your relationship with your parents?')
+    response_family  = input()
+    print('How is your work or academic life going on?')
+    response_worklife = input()
     if(predict(response_friends)<=0.3):
         friends()
     else:
@@ -192,7 +205,8 @@ def sad4():
 
 print('\n\nHello! Thanks for coming here. I am a chatbot. People say that '
       'I am a kind and approachable bot.')
-name = input('Please tell me your name.\n')
+print('Please tell me your name.')
+name = input()
 try:
     preprocessed = [word for word in preprocess_string(name) if word not in (
                     'people', 'call', 'friend')][0]
@@ -202,17 +216,21 @@ except:
     name = name.split()[0]
 name = name[0].upper() + name[1:]
 print("Hi " + name + "! My name's Simson. Let's start with our session.")
-response = input("How are you doing?\n")
+print("How are you doing?")
+response = input()
 if (predict(response) >= 0.55):
-    response = input('That is good. Are you usually this happy, or are there '\
-                     'some worries that you want to talk about?\n')
+    print('That is good. Are you usually this happy, or are there '\
+                     'some worries that you want to talk about?')
+    response = input()
     if (predict(response)>=0.7):
-        response = input('You seem to be really content. Wanna sign off?\n')
+        print('You seem to be really content. Wanna sign off?')
+        response = input()
         if(predict(response)>=0.7):
             print('Ok, bye ' + name + '!')
         else:
-            response = input('Is there something bothering you? Would you '\
-                             'share it with me?\n')
+            print('Is there something bothering you? Would you '\
+                             'share it with me?')
+            response = input()
             if(predict(response)>=0.7):
                 print("That's okay. It was nice talking to you. You can chat "\
                       "with me anytime you want.\n Bye" + name + "!")
