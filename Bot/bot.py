@@ -4,26 +4,27 @@ from gensim.parsing.preprocessing import strip_non_alphanum, preprocess_string
 from gensim.corpora.dictionary import Dictionary
 from keras.models import load_model
 import numpy as np
-import os
+import os, pathlib
 import subprocess
 try:
     input = raw_input
 except NameError:
     pass
 
+abso_path = pathlib.Path(__file__).parent.absolute()
 try:
-    model = load_model('SentimentAnalysis/model_nn.h5')
+    model = load_model(f'{abso_path}/SentimentAnalysis/model_nn.h5')
 except IOError:
-    if 'model_nn.tar.gz' not in os.listdir('SentimentAnalysis'):
-        raise IOError("Could not find Sentiment Analysis model. Ensure model "\
-                      "is present in: ./SentimentAnalysis")
+    if 'model_nn.tar.gz' not in os.listdir(f'{abso_path}/SentimentAnalysis'):
+        raise IOError(f"Could not find Sentiment Analysis model. Ensure model "\
+                      f"is present in: {abso_path}/SentimentAnalysis")
     else:
-        process = subprocess.Popen("cd SentimentAnalysis/; "\
+        process = subprocess.Popen(f"cd {abso_path}/SentimentAnalysis/; "\
                                    "tar -zxf model_nn.tar.gz; cd ..",
                                    shell=True, stdout=subprocess.PIPE)
         process.wait()
-        model = load_model('SentimentAnalysis/model_nn.h5')
-vocab = Dictionary.load('SentimentAnalysis/vocab_sentiment')
+        model = load_model(f'{abso_path}/SentimentAnalysis/model_nn.h5')
+vocab = Dictionary.load(f'{abso_path}/SentimentAnalysis/vocab_sentiment')
 
 def predict(text):
     preprocessed = [word[:-3] if word[-3:] == 'xxx' else word for word in
