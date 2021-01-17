@@ -2,6 +2,7 @@ import subprocess
 import os, fcntl
 from sys import stderr
 import time
+from .local import python_path
 
 class ChatBotManager(object):
     process_limit = 100
@@ -9,7 +10,7 @@ class ChatBotManager(object):
     def __init__(self) -> None:
         super().__init__()
         self.process_pool = [False] * self.process_limit
-        self.command = f"python {os.path.dirname(__file__)}/../../Bot/bot.py".split()
+        self.command = f"{python_path} {os.path.dirname(__file__)}/../../Bot/bot.py".split()
     
     def kill(self, pid):
         self.process_pool[pid].kill()
