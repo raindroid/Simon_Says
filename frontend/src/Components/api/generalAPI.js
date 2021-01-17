@@ -1,3 +1,4 @@
+import { accountInfo } from "../account/firebase";
 import { host } from "../account/secret";
 
 export const GeneralAPILink = "http://simon-says.space/general/";
@@ -22,7 +23,7 @@ export let getUserInfo = (accountInfo, action, callback) => {
     .then(function(res){ return res.json(); })
     .then(function(data){ 
         console.log(( data ) );
-        callback(data)
+        if (typeof callback === "function") callback(data)
         return data;
     })
 }

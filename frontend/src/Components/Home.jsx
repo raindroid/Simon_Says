@@ -16,7 +16,7 @@ import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import { accountInfo } from "./account/firebase";
 
-export function LoginDialog() {
+export function LoginDialog(props) {
   const [open, setOpen] = React.useState(false);
 
   const handleClickOpen = () => {
@@ -25,6 +25,11 @@ export function LoginDialog() {
 
   const handleClose = () => {
     setOpen(false);
+
+    if ('updateCount' in props) {
+      props.updateCount()
+      console.log("Force update")
+    }
   };
   
   let data = {
@@ -34,13 +39,14 @@ export function LoginDialog() {
   }  
 
   const signup = (data) => {
-    createUserWithEmailAndPassword(data.name, data.email, data.password)
+    createUserWithEmailAndPassword(data.name, data.email, data.password, handleClose)
     handleClose()
   }
   const signin = (data) => {
-    signinWithEmail(data.email, data.password)
+    signinWithEmail(data.email, data.password, handleClose)
     handleClose()
   }
+
 
   return (
     <div>
@@ -64,7 +70,7 @@ export function LoginDialog() {
             Sign In
           </Button>
           <GoogleButton
-            onClick={ ()=>{signinWithGoogle(data); handleClose();} }
+            onClick={ ()=>{signinWithGoogle(data, handleClose); handleClose() } }
           />
         </DialogContent>
         <DialogActions>

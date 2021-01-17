@@ -44,7 +44,7 @@ export const createUserWithEmailAndPassword = (name, email, password) => {
     });
 }
 
-export const signinWithGoogle = () => {
+export const signinWithGoogle = (callback) => {
     var provider = new firebase.auth.GoogleAuthProvider();
     provider.addScope('https://www.googleapis.com/auth/contacts.readonly');
     firebase.auth()
@@ -66,6 +66,7 @@ export const signinWithGoogle = () => {
     accountInfo.name = user.displayName
     accountInfo.uid = user.uid
     accountInfo.signed = true
+    if (typeof callback === "function") callback(accountInfo)
   }).catch((error) => {
     // Handle Errors here.
     var errorCode = error.code;
