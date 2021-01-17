@@ -17,6 +17,8 @@ import RecordVoiceOverIcon from '@material-ui/icons/RecordVoiceOver';
 import { accountInfo } from './account/firebase';
 import { getUserInfo } from './api/generalAPI';
 import { Button, CircularProgress } from '@material-ui/core';
+import { host, pure_host } from './account/secret';
+import { Sound } from "react-sound";
 
 const useStyles = makeStyles({
   table: {
@@ -39,9 +41,14 @@ const useStyles = makeStyles({
 });
 
 const ChatEntry = (props) => {
+    const playVoice = () => {if ('voice' in props && props.voice) {
+        let audio = new Audio(pure_host + props.voice)
+        audio.play()
+    }}
+    playVoice()
     return (<Grid container>
         <Grid item xs={12}>
-            <ListItemText align={props.align} primary={props.text}></ListItemText>
+            <ListItemText align={props.align} primary={props.text} onClick={playVoice}></ListItemText>
         </Grid>
         <Grid item xs={12}>
             <ListItemText align={props.align} secondary={props.time}></ListItemText>
@@ -60,7 +67,8 @@ const Chat = () => {
     setWait(true)
     getUserInfo(accountInfo, "init_chat", data=>{
         setWait(false)
-        const {msg, voice} = data
+        const {msg, voice, status} = data
+        if (status != "OK") return;
         let today = new Date();
         let new_chat = {
             align: "left",
@@ -68,7 +76,7 @@ const Chat = () => {
             voice: voice,
             text: msg
         }
-        let chat = [...chatHistory, new_chat]
+        let chat = [new_chat]
         console.log(chat)
         setChatHistory(chat)
     })
@@ -138,7 +146,7 @@ const Chat = () => {
                 <List className={classes.messageArea}>
                     {chatHistory.map((item, index)=> {
                         return <ListItem key={index}>
-                            <ChatEntry time={item.time} align={item.align} text={item.text}/>
+                            <ChatEntry time={item.time} align={item.align} text={item.text} voice={item.voice}/>
                         </ListItem>
                     })}
                 </List>
