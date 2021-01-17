@@ -11,6 +11,7 @@ from datetime import date, timedelta
 from uuid import uuid4
 import os
 import datetime
+import random
 
 path = os.path.dirname(os.path.abspath(__file__))
 cred = credentials.Certificate("{}/simonsays-firebase.json".format(path))
@@ -235,82 +236,105 @@ def dump_collection(collection):
         print(f"{doc.id}: {doc.to_dict()}")
 
 
+# if __name__ == "__main__":
+#     # send_to_firebase('')
+#     # read_firebase()
+#     cemail, cuid = 'wuyucan1998@gmail.com', 'EubmMeIbM7XgmCQFdnu2g9Nfwq42'
+#     pemail, puid = 'wuyucan1998@live.com', 'GHaHsQbyouH4Xnx2PaE4'
+#     print("DB Test Start!")
+#     dump_collection("users")
+#     dump_collection("awards")
+#     dump_collection("schedules")
+
+#     print('='*30)
+#     print("\033[32mGet Users Info\033[0m")
+#     print(get_user_info(cemail, cuid))
+#     print(get_user_info(pemail, puid))
+#     input()
+
+#     # basic info
+#     print('='*30)
+#     print("\033[32m" + "Update Users Info (role)" + "\033[0m")
+#     print(update_user_info(pemail, puid, {"role": "parent"}))
+#     print(update_user_info(cemail, cuid, {"role": "child"}))
+#     input()
+
+#     print('='*30)
+#     print("\033[32m" + "Update Users Info (add child)" + "\033[0m")
+#     print(update_parent_child_relation(pemail=pemail, puid=puid, cemail=cemail, cuid=cuid))
+#     input()
+
+#     # emotions
+#     print('='*30)
+#     print("\033[32m" + "Update Users Info (add emotion)" + "\033[0m")
+#     print(add_user_emotion(cemail, cuid, "sad"))
+#     input()
+
+#     # award
+#     print('='*30)
+#     print("\033[32m" + "Update Users Info (add award)" + "\033[0m")
+#     print(add_user_award(cemail, cuid, {"type": "emotion-positive", "title": "happy kid"}))
+#     input()
+
+#     print('='*30)
+#     print("\033[32m" + "Update Users Info (del award)" + "\033[0m")
+#     print(del_user_award(cemail, cuid, "4140bafab5344598b5be8cbe6afdcc24"))
+#     input()
+    
+#     print('='*30)
+#     print("\033[32m" + "Update Users Info (get award)" + "\033[0m")
+#     print(get_user_awards(cemail, cuid))
+#     input()
+    
+#     # schedules
+#     print('='*30)
+#     print("\033[32m" + "Update Users Info (add schedule)" + "\033[0m")
+#     print(add_user_schedule(cemail, cuid, {
+#         "location": "online", "Title": "workout", "startTime": datetime.datetime.now(), "endTime": datetime.datetime.now()+ datetime.timedelta(days = 1)
+#     }))
+#     input()
+
+#     print('='*30)
+#     print("\033[32m" + "Update Users Info (update schedule)" + "\033[0m")
+#     print(update_user_schedule(cemail, cuid, "HP1vtEy92MUlODmBUZeg", {"endTime": datetime.datetime.now()+ datetime.timedelta(days = 10)}))
+#     input()
+
+#     print('='*30)
+#     print("\033[32m" + "Update Users Info (del schedule)" + "\033[0m")
+#     print(del_user_schedule(cemail, cuid, "HP1vtEy92MUlODmBUZeg"))
+#     input()
+    
+#     print('='*30)
+#     print("\033[32m" + "Update Users Info (get schedule)" + "\033[0m")
+#     print(get_user_schedules(cemail, cuid))
+#     input()
+
+#     # get all
+#     print('='*30)
+#     print("\033[32m" + "Get all children info" + "\033[0m")
+#     print(get_children_info(pemail, puid))
+#     input()
+    
 if __name__ == "__main__":
-    # send_to_firebase('')
-    # read_firebase()
-    cemail, cuid = 'wuyucan1998@gmail.com', 'EubmMeIbM7XgmCQFdnu2g9Nfwq42'
-    pemail, puid = 'wuyucan1998@live.com', 'GHaHsQbyouH4Xnx2PaE4'
-    print("DB Test Start!")
-    dump_collection("users")
-    dump_collection("awards")
-    dump_collection("schedules")
-
-    print('='*30)
-    print("\033[32mGet Users Info\033[0m")
-    print(get_user_info(cemail, cuid))
-    print(get_user_info(pemail, puid))
-    input()
-
-    # basic info
-    print('='*30)
-    print("\033[32m" + "Update Users Info (role)" + "\033[0m")
-    print(update_user_info(pemail, puid, {"role": "parent"}))
-    print(update_user_info(cemail, cuid, {"role": "child"}))
-    input()
-
-    print('='*30)
-    print("\033[32m" + "Update Users Info (add child)" + "\033[0m")
-    print(update_parent_child_relation(pemail=pemail, puid=puid, cemail=cemail, cuid=cuid))
-    input()
-
-    # emotions
-    print('='*30)
-    print("\033[32m" + "Update Users Info (add emotion)" + "\033[0m")
-    print(add_user_emotion(cemail, cuid, "sad"))
-    input()
-
-    # award
-    print('='*30)
-    print("\033[32m" + "Update Users Info (add award)" + "\033[0m")
-    print(add_user_award(cemail, cuid, {"type": "emotion-positive", "title": "happy kid"}))
-    input()
-
-    print('='*30)
-    print("\033[32m" + "Update Users Info (del award)" + "\033[0m")
-    print(del_user_award(cemail, cuid, "4140bafab5344598b5be8cbe6afdcc24"))
-    input()
     
-    print('='*30)
-    print("\033[32m" + "Update Users Info (get award)" + "\033[0m")
-    print(get_user_awards(cemail, cuid))
-    input()
-    
+
     # schedules
+    email = "wuyucan1998@gmail.com"
+    uid = "EubmMeIbM7XgmCQFdnu2g9Nfwq42"
+    d1 = random.random()
+    d2 = random.random()
     print('='*30)
     print("\033[32m" + "Update Users Info (add schedule)" + "\033[0m")
-    print(add_user_schedule(cemail, cuid, {
-        "location": "online", "Title": "workout", "startTime": datetime.datetime.now(), "endTime": datetime.datetime.now()+ datetime.timedelta(days = 1)
+    print(add_user_schedule(email, uid, {
+        "location": "online", "Title": "demo", "startTime": datetime.datetime.now()+ datetime.timedelta(days = d1), "endTime": datetime.datetime.now()+ datetime.timedelta(days = d1 + d2)
     }))
     input()
 
+    d1 = random.randint(0,2)
+    d2 = random.randint(2,3)
     print('='*30)
-    print("\033[32m" + "Update Users Info (update schedule)" + "\033[0m")
-    print(update_user_schedule(cemail, cuid, "HP1vtEy92MUlODmBUZeg", {"endTime": datetime.datetime.now()+ datetime.timedelta(days = 10)}))
+    print("\033[32m" + "Update Users Info (add schedule)" + "\033[0m")
+    print(add_user_schedule(email, uid, {
+        "location": "home", "Title": "workout", "startTime": datetime.datetime.now()+ datetime.timedelta(days = d1), "endTime": datetime.datetime.now()+ datetime.timedelta(days = d1 + d2)
+    }))
     input()
-
-    print('='*30)
-    print("\033[32m" + "Update Users Info (del schedule)" + "\033[0m")
-    print(del_user_schedule(cemail, cuid, "HP1vtEy92MUlODmBUZeg"))
-    input()
-    
-    print('='*30)
-    print("\033[32m" + "Update Users Info (get schedule)" + "\033[0m")
-    print(get_user_schedules(cemail, cuid))
-    input()
-
-    # get all
-    print('='*30)
-    print("\033[32m" + "Get all children info" + "\033[0m")
-    print(get_children_info(pemail, puid))
-    input()
-    

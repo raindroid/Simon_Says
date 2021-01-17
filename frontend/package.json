@@ -20,6 +20,7 @@
     "fullcalendar": "^5.5.1",
     "moment": "^2.29.1",
     "react": "^17.0.1",
+    "react-chart": "0.0.1",
     "react-charts": "^2.0.0-beta.7",
     "react-dom": "^17.0.1",
     "react-google-button": "^0.7.1",

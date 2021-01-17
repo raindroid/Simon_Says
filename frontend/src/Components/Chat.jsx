@@ -44,7 +44,7 @@ const useStyles = makeStyles({
 
 const ChatEntry = (props) => {
     const playVoice = () => {if ('voice' in props && props.voice) {
-        let audio = new Audio(props.voice)
+        let audio = new Audio(pure_host + props.voice)
         audio.play()
     }}
     playVoice()
@@ -128,7 +128,7 @@ const Chat = () => {
         <Grid container component={Paper} className={classes.chatSection}>
             <Grid item xs={3} className={classes.borderRight500}>
                 <List>
-                    <ListItem button key="RemySharp">
+                    <ListItem button key="RemySharp" style={{background: "#dfdfe1"}}>
                         <ListItemIcon>
                         <Avatar alt="Simon" src="." />
                         </ListItemIcon>
@@ -136,8 +136,8 @@ const Chat = () => {
                     </ListItem>
                 </List>
                 <Divider />
-                <Grid item xs={12} style={{padding: '10px'}}>
-                    <Button onClick={init_chat}>Start Chat</Button>
+                <Grid item xs={12} style={{padding: '10px', width: "100%"}}>
+                    <Button style={{width: "100%"}} onClick={init_chat}>Start Chat</Button>
                 </Grid>
                 <Grid item xs={12}>
                     {wait &&<CircularProgress style={{alignContent: "center"}}/>}
@@ -158,10 +158,10 @@ const Chat = () => {
                         <TextField id="outlined-basic-email" label="Type Something" fullWidth onChange={e=>{user_text=e.target.value}}/>
                     </Grid>
                     <Grid xs={1} align="right">
-                        <Fab color="primary" aria-label="add" ><MicIcon /></Fab>
+                        <Fab style={{margin: "8px"}} color="primary" aria-label="add" ><MicIcon /></Fab>
                     </Grid>
                     <Grid xs={1} align="right">
-                        <Fab color="primary" aria-label="add" onClick={continue_chat}><SendIcon /></Fab>
+                        <Fab style={{margin: "8px"}} color="primary" aria-label="add" onClick={continue_chat}><SendIcon /></Fab>
                     </Grid>
                 </Grid>
             </Grid>

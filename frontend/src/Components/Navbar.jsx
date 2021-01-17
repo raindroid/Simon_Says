@@ -8,15 +8,15 @@ import helplogo from '../images/Help Icon (Light).png'
 const Navbar = () => {
     return (
       //  <div className="sidenav">
-            <div className="sidenav container-fluid nav_bg">
+            <div className="sidenav container-fluid nav_bg" style={{boxShadow: "0 4px 8px rgba(0.1, 0.24, 0.26, 0.4)", minWidth: "120px", maxWidth: "200px"}}>
                 <div className='column col-auto'>
-                    <div><img className="simon-says-logo-light" src={logo} alt="logo" /></div>   
+                    <div><img className="simon-says-logo-light" style={{width: "90%", height: "auto"}} src={logo} alt="logo" /></div>   
                     <div className="row row-auto"><a href="/home">
                         <img src={homelogo} alt="homelogo"/> HOME</a>
                     </div>  
 
                      <div className="row row-auto"> <a href="/activities">
-                        <img src={schedulelogo} alt="schedulelogo"/> ACTIVITIES</a>
+                        <img  src={schedulelogo} alt="schedulelogo"/> ACTIVITIES</a>
                     </div>                   
                     
                    
@@ -24,7 +24,7 @@ const Navbar = () => {
                     <img src={goallogo} alt="goallogo"/> GOALS</a>
                     </div>
 
-                    <div className="row row-auto"><a className="help"  href="/help">
+                    <div className="row row-auto"><a className="help"  style={{width: "-webkit-fill-available", marginTop: "36px", padding: "24px", background: "#DD9F49"}} href="/help">
                     <img src={helplogo} alt="helplogo"/> HELP</a>
                     </div>
                     

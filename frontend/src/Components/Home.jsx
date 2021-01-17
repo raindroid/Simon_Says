@@ -3,31 +3,72 @@ import Heading from "./Heading";
 import teddy from "../images/Simon ChatBot (Green).png";
 import moment from "moment";
 import React, { Component } from "react";
-import '../App.css'
-import Navbar from '../Components/Navbar'
+import "../App.css";
+import Navbar from "../Components/Navbar";
 import { getUserInfo, testFunc } from "./api/generalAPI";
-import { Button, TextField } from "@material-ui/core";
-import { createUserWithEmailAndPassword, signinWithEmail, signinWithGoogle } from "./account/firebase";
-import GoogleButton from 'react-google-button';
+import { Button, LinearProgress, TextField } from "@material-ui/core";
+import {
+  createUserWithEmailAndPassword,
+  signinWithEmail,
+  signinWithGoogle,
+} from "./account/firebase";
+import GoogleButton from "react-google-button";
 
-import Dialog from '@material-ui/core/Dialog';
-import DialogActions from '@material-ui/core/DialogActions';
-import DialogContent from '@material-ui/core/DialogContent';
-import DialogContentText from '@material-ui/core/DialogContentText';
-import DialogTitle from '@material-ui/core/DialogTitle';
+import Dialog from "@material-ui/core/Dialog";
+import DialogActions from "@material-ui/core/DialogActions";
+import DialogContent from "@material-ui/core/DialogContent";
+import DialogContentText from "@material-ui/core/DialogContentText";
+import DialogTitle from "@material-ui/core/DialogTitle";
 import { accountInfo } from "./account/firebase";
 
 function formatDate(date, format, utc) {
-  var MMMM = ["\x00", "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-  var MMM = ["\x01", "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
-  var dddd = ["\x02", "Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+  var MMMM = [
+    "\x00",
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December",
+  ];
+  var MMM = [
+    "\x01",
+    "Jan",
+    "Feb",
+    "Mar",
+    "Apr",
+    "May",
+    "Jun",
+    "Jul",
+    "Aug",
+    "Sep",
+    "Oct",
+    "Nov",
+    "Dec",
+  ];
+  var dddd = [
+    "\x02",
+    "Sunday",
+    "Monday",
+    "Tuesday",
+    "Wednesday",
+    "Thursday",
+    "Friday",
+    "Saturday",
+  ];
   var ddd = ["\x03", "Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 
   function ii(i, len) {
-      var s = i + "";
-      len = len || 2;
-      while (s.length < len) s = "0" + s;
-      return s;
+    var s = i + "";
+    len = len || 2;
+    while (s.length < len) s = "0" + s;
+    return s;
   }
 
   var y = utc ? date.getUTCFullYear() : date.getFullYear();
@@ -81,10 +122,10 @@ function formatDate(date, format, utc) {
   var tz = -date.getTimezoneOffset();
   var K = utc || !tz ? "Z" : tz > 0 ? "+" : "-";
   if (!utc) {
-      tz = Math.abs(tz);
-      var tzHrs = Math.floor(tz / 60);
-      var tzMin = tz % 60;
-      K += ii(tzHrs) + ":" + ii(tzMin);
+    tz = Math.abs(tz);
+    var tzHrs = Math.floor(tz / 60);
+    var tzMin = tz % 60;
+    K += ii(tzHrs) + ":" + ii(tzMin);
   }
   format = format.replace(/(^|[^\\])K/g, "$1" + K);
 
@@ -98,7 +139,7 @@ function formatDate(date, format, utc) {
   format = format.replace(/\\(.)/g, "$1");
 
   return format;
-};
+}
 
 export function LoginDialog(props) {
   const [open, setOpen] = React.useState(false);
@@ -109,62 +150,100 @@ export function LoginDialog(props) {
 
   const handleClose = () => {
     setOpen(false);
-
-    
   };
 
-  let callback = ()=>{
-    if ('updateCount' in props) {
-      props.updateCount()
-      console.log("Force update")
+  let callback = () => {
+    if ("updateCount" in props) {
+      props.updateCount();
+      console.log("Force update");
     }
 
-    if ('callback' in props) {
-      props.callback()
-      console.log("Execute callback")
+    if ("callback" in props) {
+      props.callback();
+      console.log("Execute callback");
     }
-  }
+  };
 
-  
   let data = {
     name: "",
     email: "",
-    password: ""
-  }  
+    password: "",
+  };
 
   const signup = (data) => {
-    createUserWithEmailAndPassword(data.name, data.email, data.password, callback)
-    handleClose()
-  }
+    createUserWithEmailAndPassword(
+      data.name,
+      data.email,
+      data.password,
+      callback
+    );
+    handleClose();
+  };
   const signin = (data) => {
-    signinWithEmail(data.email, data.password, callback)
-    handleClose()
-  }
-
+    signinWithEmail(data.email, data.password, callback);
+    handleClose();
+  };
 
   return (
     <div>
-      <Button variant="outlined" color="primary" onClick={handleClickOpen} style={{ color: "black"}}>
+      <Button
+        variant="outlined"
+        color="primary"
+        onClick={handleClickOpen}
+        style={{ color: "white", background: "#DDA04B", margin: "auto", bottom: "12px", position: "fixed" }}
+      >
         {accountInfo.signed ? accountInfo.name : "Sign in / sign up"}
       </Button>
-      <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
+      <Dialog
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="form-dialog-title"
+      >
         <DialogTitle id="form-dialog-title">Subscribe</DialogTitle>
         <DialogContent>
           <DialogContentText>
-            To subscribe to this website, please enter your email address here. We will send updates
-            occasionally.
           </DialogContentText>
-          <TextField id="standard-basic" label="name" onChange={e=>{data.name=e.target.value}}/>
-          <TextField id="standard-basic" label="email" onChange={e=>{data.email=e.target.value}}/>
-          <TextField id="standard-basic" label="password" type="password" onChange={e=>{data.password=e.target.value}}/>
-          <Button variant="contained" color="secondary" onClick={()=>signup(data)}>
+          <TextField
+            id="standard-basic"
+            label="name"
+            onChange={(e) => {
+              data.name = e.target.value;
+            }}
+          />
+          <TextField
+            id="standard-basic"
+            label="email"
+            onChange={(e) => {
+              data.email = e.target.value;
+            }}
+          />
+          <TextField
+            id="standard-basic"
+            label="password"
+            type="password"
+            onChange={(e) => {
+              data.password = e.target.value;
+            }}
+          />
+          <Button
+            variant="contained"
+            color="secondary"
+            onClick={() => signup(data)}
+          >
             Sign Up
           </Button>
-          <Button variant="contained" color="secondary" onClick={()=>signin(data)}>
+          <Button
+            variant="contained"
+            color="secondary"
+            onClick={() => signin(data)}
+          >
             Sign In
           </Button>
           <GoogleButton
-            onClick={ ()=>{signinWithGoogle(callback); handleClose() } }
+            onClick={() => {
+              signinWithGoogle(callback);
+              handleClose();
+            }}
           />
         </DialogContent>
         <DialogActions>
@@ -178,12 +257,10 @@ export function LoginDialog(props) {
 }
 
 class Home extends Component {
-  
-
   state = {
     date: new Date(),
     update: 0,
-    schedules: []
+    schedules: [],
   };
 
   callMe() {
@@ -194,25 +271,22 @@ class Home extends Component {
 
   getActivities = () => {
     if (accountInfo.signed) {
-      getUserInfo(accountInfo, 'get_user_schedules', schedules=>{
-        console.log(schedules)
+      getUserInfo(accountInfo, "get_user_schedules", (schedules) => {
+        console.log(schedules);
         if (schedules.status == "OK") {
-          delete schedules.status
-          this.setState(schedules)
+          delete schedules.status;
+          this.setState(schedules);
         }
-      })
+      });
     }
-  }
+  };
 
-
-  
   render() {
     return (
       <>
         <div className="container-fluid nav_bg">
-          
           <div className="col-2">
-          <Navbar/>
+            <Navbar />
             {/* <div className="row">
               <div className="col-2" />
               <div className="col-6 mx-auto">
@@ -222,48 +296,85 @@ class Home extends Component {
                 
               </div>
             </div> */}
-            <div style={{bottom: "10px", position: "absolute"}}>
-
-            <LoginDialog callback={()=>{this.setState({update: this.state.update + 1}); this.getActivities();}}/>
+            <div style={{ bottom: "10px", position: "absolute" }}>
+              <LoginDialog
+                callback={() => {
+                  this.setState({ update: this.state.update + 1 });
+                  this.getActivities();
+                }}
+              />
             </div>
-          </div> 
-         
+          </div>
 
           <div className="row pt-5 gy-5">
             <div className="col-2" />
             <div className="hello-gibson-welcome-back col-6 mx-auto">
               <Heading name="Hello Gibson," />
-              
+
               <p className="text-center">Welcome Back!</p>
             </div>
 
-            <div className="col-4 mx-auto date-block-section overflow-hidden">
-            {/* <p className="today-is"> Today is {moment(new Date().toLocaleString()).format("dddd")}</p>
+            <div
+              className="col-4 mx-auto date-block-section overflow-hidden"
+              style={{
+                boxShadow: "rgba(0, 0, 0, 0.3) 0px 12px 28px",
+                padding: "12px",
+                padding: "12px",
+                height: "auto",
+                alignSelf: "center",
+              }}
+            >
+              {/* <p className="today-is"> Today is {moment(new Date().toLocaleString()).format("dddd")}</p>
             <p className="time">{moment(this.state.date.toLocaleString()).format("LTS")} </p> */}
-              <p className="today-is"> Today is {formatDate(new Date(), "dddd hh:mmtt d MMM yyyy")}</p>
+              <p
+                className="today-is"
+                style={{ margin: "auto", height: "auto", padding: "0" }}
+              >
+                {" "}
+                Today is {formatDate(new Date(), "dddd hh:mmtt d MMM")}
+              </p>
               {/* <p className="time">{moment(this.state.date.toLocaleString()).format("LTS")} </p> */}
               {this.callMe()}
             </div>
           </div>
-          
+
           <div className="row pt-5 gy-5">
             <div className="col-2" />
             <div className="col-6 mx-auto text-center">
-              <img className='simon-chat-bot-green' src={teddy} alt="Teddy" />
+              <img className="simon-chat-bot-green" src={teddy} alt="Teddy" />
             </div>
 
-            <div className="col-4 mx-auto next-rectangle" style={{color: "white"}}>
+            <div
+              className="col-4 mx-auto next-rectangle"
+              style={{
+                boxShadow: "rgba(0, 0, 0, 0.3) 0px 12px 28px",
+                color: "white",
+                padding: "12px",
+              }}
+            >
               <h3>Next Activity</h3>
               <div>
-                {Object.keys(this.state.schedules).map((key, index)=>  
-                  {return <p><b>{this.state.schedules[key].Title}</b> <br/>Location: {this.state.schedules[key].location} <br/>{formatDate(new Date(this.state.schedules[key].startTime), "dddd hh:mmtt d MMM")} - {formatDate(new Date(this.state.schedules[key].endTime), "dddd hh:mmtt d MMM")}] </p>})
-                }
+                {Object.keys(this.state.schedules).map((key, index) => {
+                  return (
+                    <div key={key}>
+                      {index == 0 && <LinearProgress style={{height: "12px", borderRadius: "40px", background: "#a8aadd"}} value={78} variant="determinate"/>}
+                      {index > 0 && <hr style={{borderTop: "1px solid #ccc"}}/>}
+                    <p>
+                      <b>{this.state.schedules[key].Title}</b> <br />
+                      Location: {this.state.schedules[key].location} <br />
+                      {formatDate(
+                        new Date(this.state.schedules[key].startTime),
+                        "dddd hh:mmtt d MMM"
+                      )}
+                    </p>
+                    
+                    </div>
+                  );
+                })}
               </div>
             </div>
           </div>
         </div>
-        
-       
       </>
     );
   }
