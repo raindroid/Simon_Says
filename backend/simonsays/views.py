@@ -7,11 +7,12 @@ from fire.firebase import *
 from chatbot.views import *
 from myapi.views import *
 from django.views.decorators.csrf import csrf_exempt
+from django.shortcuts import render
 
 
 @csrf_exempt
 def index(request):
-    return HttpResponse("<h1>Hello, world. You're at the SimonSays index page.</h1>")
+    return render(request, 'simonsays/index.html')
 
 POSSIBLE_ACTIONS = {
     "init_chat"                     :  lambda d: init_chat(uid=d['uid']),

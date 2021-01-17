@@ -2,6 +2,7 @@ import { accountInfo } from "../account/firebase";
 import { host } from "../account/secret";
 
 export const GeneralAPILink = "http://simon-says.space/general/";
+const defaulthost = "/general/";
 
 export const getFormData = (data) => {
     let formData = new FormData()
@@ -16,7 +17,7 @@ export let getUserInfo = (accountInfo, action, callback) => {
     let formData = getFormData(accountInfo)
     formData.append('action', action)
     console.log(formData)
-    fetch(host, {
+    fetch(defaulthost, { // TODO update host 
         method: "POST",
         body: formData,
     })
