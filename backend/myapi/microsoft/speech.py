@@ -9,7 +9,7 @@ from django.http import JsonResponse
 
 def text_from_voice(file):
     if file[-4:] != ".wav": # sanity check
-        return JsonResponse({"msg": "file type error", "status": "ERROR"})
+        return ({"msg": "file type error", "status": "ERROR"})
 
 
     speech_config = speechsdk.SpeechConfig(subscription=api_keys["microsoft-speech"]["key"], region=api_keys["microsoft-speech"]["region"])

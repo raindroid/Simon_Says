@@ -11,11 +11,15 @@ class ChatBotManager(object):
         self.process_pool = [False] * self.process_limit
         self.command = f"python {os.path.dirname(__file__)}/../../Bot/bot.py".split()
     
+    def kill(self, pid):
+        self.process_pool[pid].kill()
+        print(f"Process {pid} got killed")
+    
     def read_process_msg(process):
         fcntl.fcntl(process.stdout.fileno(), fcntl.F_SETFL, os.O_NONBLOCK)
         output = ''
         temp = True
-        while process.poll() == None and (output.strip() == '' or (temp != '' and temp != None)):
+        while process.poll() is None and (output.strip() == '' or (temp != '' and temp is not None)):
             temp = ''
             try:
                 temp = process.stdout.read()
@@ -32,20 +36,22 @@ class ChatBotManager(object):
         for i, process in enumerate(self.process_pool):
             if process != False and process.poll() != None:
                 self.process_pool[i] = False
-        if self.process_pool[pid] == False:
+        if self.process_pool[pid] is False:
             return None
-        time.sleep(init_delay)
+        # time.sleep(init_delay)
         return ChatBotManager.read_process_msg(self.process_pool[pid])
 
     def create_new(self):
         pid = 0
+        print("Creating chat thread")
         while pid < len(self.process_pool) and self.process_pool[pid] != False:
             if self.process_pool[pid].poll() != None:
                 break
             pid += 1
         if pid >= len(self.process_pool): return None
-
+        
         self.process_pool[pid] = subprocess.Popen(self.command, bufsize=2, stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.DEVNULL)
+        print(f"SUCCEED - p{pid}")
         return pid
 
     def send_msg(self, pid, msg: str):
@@ -53,7 +59,7 @@ class ChatBotManager(object):
         for i, process in enumerate(self.process_pool):
             if process != False and process.poll() != None:
                 self.process_pool[i] = False
-        if self.process_pool[pid] == False:
+        if self.process_pool[pid] is False:
             print("Tests END 2")
             return None
         
@@ -67,7 +73,7 @@ class ChatBotManager(object):
         
 
 if __name__ == "__main__":
-    test_amount = 4
+    test_amount = 1
     bots = ChatBotManager()
     for i in range(test_amount):
         bots.create_new()

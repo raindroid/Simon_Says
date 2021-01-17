@@ -33,3 +33,6 @@ react_router_paths = (
 
 for subpath in react_router_paths:
     urlpatterns.append(path("{}/".format(subpath), views.index))
+
+# applications
+urlpatterns.append(path(f"general/", views.general))

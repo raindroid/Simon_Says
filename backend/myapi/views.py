@@ -53,3 +53,4 @@ def download(req):
         if os.path.exists(filepath):
             return serve(req, os.path.basename(filepath), os.path.dirname(filepath))
     return JsonResponse({"msg": "file not found", "status": "ERROR"})
+

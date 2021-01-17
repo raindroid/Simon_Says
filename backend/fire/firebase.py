@@ -3,6 +3,7 @@
 # $ export GOOGLE_APPLICATION_CREDENTIALS=`pwd`'/fire/simonsays-firebase.json'
 
 from json import dump
+import json
 import firebase_admin
 from firebase_admin import credentials, firestore
 import time
@@ -16,24 +17,34 @@ cred = credentials.Certificate("{}/simonsays-firebase.json".format(path))
 firebase_admin.initialize_app(cred)
 
 def get_user_info(email, uid):
-    db = firestore.client()
-    users_ref = db.collection(u'users')
-    query_ref = users_ref.where('email', '==', email)
-    # for q in query_ref.stream():
-    #     print(q)
-    result = {}
-    for doc in query_ref.stream():
-        if doc.id == uid: result = doc.to_dict()
-    if result.get('email', False):
-        result.setdefault('role', 'unknown')
-        result.setdefault('children', [])
-        result = {'info': result}
-        result['status'] = 'OK'
-        return result
-    else:
-        return {"status": "ERROR", "msg": "User {} not found".format(email)}
+    try:
+        db = firestore.client()
+        users_ref = db.collection(u'users')
+        query_ref = users_ref.where('email', '==', email)
+        # for q in query_ref.stream():
+        #     print(q)
+        result = {}
+        for doc in query_ref.stream():
+            if doc.id == uid: result = doc.to_dict()
+        print(f"Found result - {result}")
+        if result.get('email', False):
+            result.setdefault('role', 'unknown')
+            result.setdefault('children', [])
+            result = {'info': result}
+            result['status'] = 'OK'
+            return result
+    except:
+        print("ERROR AT get_user_info")
+    
+    return {"status": "ERROR", "msg": "User {} not found".format(email)}
 
 def update_user_info(email, uid, data):
+    try:
+        if isinstance(data, str):
+            data = json.loads(data)
+    except:
+        return {"status": "ERROR", "msg": "data wrong type"}
+
     data['email'] = email
     db = firestore.client()
     user_ref = db.collection(u'users').document(uid)
@@ -124,13 +135,18 @@ def add_user_award(email, uid, award):
     info = get_user_info(email, uid)
     if info['status'] != 'OK': return info
 
+    try:
+        if isinstance(award, str):
+            award = json.loads(award)
+    except:
+        return {"status": "ERROR", "msg": "award wrong type"}
     db = firestore.client()
     award['uid'] = uid
     award_id = uuid4().hex
     awards_ref = db.collection("awards").document(award_id)
     awards_ref.set(award)
     
-    return {"status": "OK", "awardID": award_id}
+    return {"status": "OK", "aid": award_id}
 
 def del_user_award(email, uid, aid):
     info = get_user_info(email, uid)
@@ -167,24 +183,34 @@ def add_user_schedule(email, uid, schedule):
     info = get_user_info(email, uid)
     if info['status'] != 'OK': return info
 
+    try:
+        if isinstance(schedule, str):
+            schedule = json.loads(schedule)
+    except:
+        return {"status": "ERROR", "msg": "schedule wrong type"}
     db = firestore.client()
     schedule['uid'] = uid
     schedule_id = uuid4().hex
     schedules_ref = db.collection("schedules").document(schedule_id)
     schedules_ref.set(schedule)
     
-    return {"status": "OK", "scheduleID": schedule_id}
+    return {"status": "OK", "sid": schedule_id}
 
-def update_user_schedule(email, uid, scheduleId, schedule):
+def update_user_schedule(email, uid, sid, schedule):
     info = get_user_info(email, uid)
     if info['status'] != 'OK': return info
 
+    try:
+        if isinstance(schedule, str):
+            schedule = json.loads(schedule)
+    except:
+        return {"status": "ERROR", "msg": "schedule wrong type"}
     db = firestore.client()
     schedule['uid'] = uid
-    schedules_ref = db.collection("schedules").document(scheduleId)
+    schedules_ref = db.collection("schedules").document(sid)
     schedules_ref.set(schedule, merge=True)
     
-    return {"status": "OK", "scheduleID": scheduleId}
+    return {"status": "OK", "sid": sid}
 
 def del_user_schedule(email, uid, sid):
     info = get_user_info(email, uid)
