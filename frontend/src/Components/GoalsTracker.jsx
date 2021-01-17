@@ -27,11 +27,11 @@ const deleteItems = (id) =>{
 
 return (
     <>
-    <div className="center_div">
-        <br/>
+    <div className="center_div center-block">
+        {/* <br/>
         <h1>Today's Goals</h1>
-        <br/>
-        <input type='text' placeholder='Add new goal' 
+        <br/> */}
+        <input className="justify-content-right" type='text' placeholder='Add new goal' 
         value = {inputList}
         onChange={itemEvent}/>
         <button onClick={listOfItems}> + </button>

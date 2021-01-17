@@ -3,6 +3,7 @@ import { accountInfo } from "./account/firebase";
 import Chat from "./Chat";
 import Heading from './Heading'
 import { LoginDialog } from "./Home";
+import Navbar from '../Components/Navbar'
 const Help = () =>{
     let [updateCount, setUpdateCount] = useState(0)
     return (
@@ -10,6 +11,13 @@ const Help = () =>{
         <div className='row'>
             <div className="col-10 mx-auto"> 
                 <h3>{accountInfo.signed ? "Hello, " + accountInfo.name : <LoginDialog updateCount={()=>{setUpdateCount(updateCount + 1)}}/>}</h3>
+    <div className="App container-fluid nav_bg">
+        <div className="col-2">
+          <Navbar/>
+        </div>
+        <div className='row pt-5 gy-5'>
+            <div className="col-12 mx-auto"> 
+                {/* <h3>Hello, Gibson</h3> */}
                 <Heading name="How can I help?"/>
                 <Chat />
                 
@@ -18,6 +26,9 @@ const Help = () =>{
         <div className = 'row'>
             
         </div>
+    </div>
+    </div>
+    </div>
     </div>
     );
 };

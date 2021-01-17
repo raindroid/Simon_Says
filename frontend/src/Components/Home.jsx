@@ -4,6 +4,7 @@ import teddy from "../images/Simon ChatBot (Green).png";
 import moment from "moment";
 import React, { Component } from "react";
 import '../App.css'
+import Navbar from '../Components/Navbar'
 import { testFunc } from "./api/generalAPI";
 import { Button, TextField } from "@material-ui/core";
 import { createUserWithEmailAndPassword, signinWithEmail, signinWithGoogle } from "./account/firebase";
@@ -102,15 +103,12 @@ class Home extends Component {
     return (
       <>
         <div className="container-fluid nav_bg">
-          <div className="row">
-            <div className="col-2" />
-            <div className="col-6 mx-auto">
-            </div>
-            <div className="col-4 mx-auto">
-            <LoginDialog />
-              
-            </div>
+          
+          <div className="col-2">
+          <Navbar/>
           </div>
+         
+            <LoginDialog />
 
           <div className="row pt-5 gy-5">
             <div className="col-2" />
@@ -144,49 +142,5 @@ class Home extends Component {
     );
   }
 }
-// const Home = () =>{
-//     return (
-//     <div className="container-fluid nav_bg">
-//         {/* First Row  */}
-//         <div className='row'>
-//             <div className="col-8 mx-auto">
-//             {/* <Heading name='Hello Gibson,'/>
-//             <h3>Welcome Back!</h3> */}
-//             </div>
-
-//             <div className="col-2 mt-2 mr-1">
-//             <h3>Account</h3>
-//             </div>
-//         </div>
-
-//         {/* Second Row  */}
-//         <div className='row'>
-//             <div className="col-8 mx-auto">
-//             <Heading name='Hello Gibson,'/>
-//             <h3>Welcome Back!</h3>
-//             </div>
-
-//             <div className="col-2 mx-auto">
-//             {new Date().toLocaleString()} <br/>
-//             {moment(  new Date().toLocaleString()).format('dddd')}
-//             </div>
-//         </div>
-//         <br/>
-//         <br/>
-
-//         {/* Third Row  */}
-//         <div className='row'>
-//             <div className="col-8 mx-auto">
-//             <img src={teddy} alt='Waving Teddy' width="300" height="350"/>
-//             </div>
-
-//             <div className="col-2 mx-auto">
-//             <Heading name='Hello Gibson,'/>
-//             <h3>Welcome Back!</h3>
-//             </div>
-//         </div>
-//     </div>
-//     );
-// };
 
 export default Home;

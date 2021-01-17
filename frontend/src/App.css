@@ -40,6 +40,8 @@
 
  .App{
    background-color: #EFEAE7;
+   height: 150vh;
+   overflow: hidden;
  }
 
  .hello-gibson-welcome-back {
@@ -93,4 +95,24 @@
   width: 434px;
   border-radius: 8px;
   background-color: #4A6B7B;
+}
+
+.error-404-page-go-home {
+  height: 100px;
+  width: 200px;
+  z-index: 1;
+  position: relative;
+}
+
+.goal-rectangle {
+  height: 691px;
+  width: 533px;
+  border-radius: 8px;
+  background-color: #4A6B7B;
+}
+
+.center-block {
+  display: block;
+  margin-right: auto;
+  margin-left: auto;
 }
