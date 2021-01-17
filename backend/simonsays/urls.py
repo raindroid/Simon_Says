@@ -36,3 +36,5 @@ for subpath in react_router_paths:
 
 # applications
 urlpatterns.append(path(f"general/", views.general))
+
+handler404 = 'simonsays.views.handler404'

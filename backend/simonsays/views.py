@@ -9,6 +9,8 @@ from myapi.views import *
 from django.views.decorators.csrf import csrf_exempt
 from django.shortcuts import render
 
+def handler404(request, e):
+    return render(request, 'simonsays/index.html')
 
 @csrf_exempt
 def index(request):

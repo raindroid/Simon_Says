@@ -66,7 +66,10 @@ export const signinWithGoogle = (callback) => {
     accountInfo.name = user.displayName
     accountInfo.uid = user.uid
     accountInfo.signed = true
-    if (typeof callback === "function") callback(accountInfo)
+    if (callback) {
+        console.log("Executing callback from signinWithGoogle")
+        callback(accountInfo)
+    }
   }).catch((error) => {
     // Handle Errors here.
     var errorCode = error.code;

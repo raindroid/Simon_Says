@@ -19,6 +19,8 @@ import { getUserInfo } from './api/generalAPI';
 import { Button, CircularProgress } from '@material-ui/core';
 import { host, pure_host } from './account/secret';
 import { Sound } from "react-sound";
+import VolumeUpIcon from '@material-ui/icons/VolumeUp';
+import MicIcon from '@material-ui/icons/Mic';
 
 const useStyles = makeStyles({
   table: {
@@ -48,7 +50,7 @@ const ChatEntry = (props) => {
     playVoice()
     return (<Grid container>
         <Grid item xs={12}>
-            <ListItemText align={props.align} primary={props.text} onClick={playVoice}></ListItemText>
+            <ListItemText align={props.align} primary={props.text} ></ListItemText>{('voice' in props && props.voice) && <VolumeUpIcon onClick={playVoice}/>}
         </Grid>
         <Grid item xs={12}>
             <ListItemText align={props.align} secondary={props.time}></ListItemText>
@@ -152,8 +154,11 @@ const Chat = () => {
                 </List>
                 <Divider />
                 <Grid container style={{padding: '20px'}}>
-                    <Grid item xs={11}>
+                    <Grid item xs={10}>
                         <TextField id="outlined-basic-email" label="Type Something" fullWidth onChange={e=>{user_text=e.target.value}}/>
+                    </Grid>
+                    <Grid xs={1} align="right">
+                        <Fab color="primary" aria-label="add" ><MicIcon /></Fab>
                     </Grid>
                     <Grid xs={1} align="right">
                         <Fab color="primary" aria-label="add" onClick={continue_chat}><SendIcon /></Fab>
