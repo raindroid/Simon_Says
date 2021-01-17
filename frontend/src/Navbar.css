@@ -44,9 +44,11 @@
   
  }
 
- .help-rect{
-  
- }
+ .simon-says-logo-light {
+  height: 52px;
+  width: 235px;
+}
+
   /* Style page content */
   .main {
     margin-left: 160px; /* Same as the width of the sidebar */

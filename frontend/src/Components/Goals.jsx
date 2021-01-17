@@ -13,8 +13,6 @@ const Goal = () =>{
     
     <div className='row'>
         <div className="col-10 mx-auto">
-            <Heading name="Today's Goals"/>
-            <br/>
             <GoalsList/>
         </div>
         </div>

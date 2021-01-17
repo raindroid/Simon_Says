@@ -55,4 +55,42 @@
 .simon-chat-bot-green {
   height: 489px;
   width: 230px;
+  z-index: 1;
+}
+
+.date-block-section {
+  height: 279px;
+  width: 434px;
+  border-radius: 8px;
+  background-color: #4A6B7B;
+}
+
+.today-is {
+  padding-top: 10%;
+  height: 76px;
+  width: 382px;
+  color: #D7D7EC;
+  font-family: Montserrat;
+  font-size: 42px;
+  font-weight: 500;
+  line-height: 51px;
+}
+
+.time{
+  height: 76px;
+  /* width: 370px; */
+  color: #D7D7EC;
+  font-family: Montserrat;
+  font-size: 80px;
+  font-weight: 500;
+  line-height: 98px;
+  padding-top: 10%;
+}
+
+.next-rectangle {
+  margin-top: 10%;
+  height: 358px;
+  width: 434px;
+  border-radius: 8px;
+  background-color: #4A6B7B;
 }

@@ -10,7 +10,7 @@ const Navbar = () => {
       //  <div className="sidenav">
             <div className="sidenav container-fluid nav_bg">
                 <div className='column col-auto'>
-                    <div><img src={logo} alt="logo" /></div>   
+                    <div><img className="simon-says-logo-light" src={logo} alt="logo" /></div>   
                     <div className="row row-auto"><a href="/home">
                         <img src={homelogo} alt="homelogo"/> HOME</a>
                     </div>  

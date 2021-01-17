@@ -28,27 +28,28 @@ class Home extends Component {
             </div>
           </div>
 
-          <div className="row pt-5">
+          <div className="row pt-5 gy-5">
             <div className="col-2" />
             <div className="hello-gibson-welcome-back col-6 mx-auto">
             <Heading name="Hello Gibson," />
+            
             <p className="text-center">Welcome Back!</p>
             </div>
-            <div className="col-4 mx-auto">
-            <h6>Today is </h6>
-              <h3>{moment(new Date().toLocaleString()).format("dddd")}</h3>
-              <h2>{moment(this.state.date.toLocaleString()).format("LTS")} </h2>
-              {this.callMe()}
+
+            <div className="col-4 mx-auto date-block-section overflow-hidden">
+            <p className="today-is"> Today is {moment(new Date().toLocaleString()).format("dddd")}</p>
+            <p className="time">{moment(this.state.date.toLocaleString()).format("LTS")} </p>
+            {this.callMe()}
             </div>
           </div>
-
-          <div className="row">
+          
+          <div className="row pt-5 gy-5">
           <div className="col-2" />
             <div className="col-6 mx-auto text-center">
               <img className='simon-chat-bot-green' src={teddy} alt="Teddy" />
             </div>
 
-            <div className="col-4 mx-auto">
+            <div className="col-4 mx-auto next-rectangle">
               <h3>Next Activity</h3>
             </div>
           </div>
