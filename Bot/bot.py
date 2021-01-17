@@ -116,8 +116,8 @@ def work():
     print(finisher)
 
 def sad1():
-    print('I understand. Seems like something\'s bothering you. '\
-                     'Could you further describe it, in short?')
+    print('I understand. Seems like something\'s bothering you. Take a deep breath and let\'s count to 10 together. (Slowly) 1, 2, 3 ,4, 5, 6, 7, 8, 9, 10'\
+                     'Do you want to talk about that?')
     response = input()
     if(predict(response)>=0.4):
         print('It seems like though the issue might be a little '\
@@ -125,7 +125,7 @@ def sad1():
                          'What are your thoughts on this?')
         response = input()
         if(predict(response)>=0.5):
-            print('Looks like you agree with me. Wanna sign off?')
+            print('Looks like you are better now. Wanna sign off?')
             response = input()
             if(predict(response)>0.55):
                 print("That's okay. It was nice talking to you. You can chat "\
@@ -190,11 +190,11 @@ def sad3():
 def sad4():
     print("My sympathies. Looks like it might be a point of concern. Don't "\
           "worry, that's what I'm here for!")
-    print('How are things going on with your friends?')
+    print('How are things going on with your friends? Did you have a good time with them?')
     response_friends = input()
     print('How is your relationship with your parents?')
     response_family  = input()
-    print('How is your work or academic life going on?')
+    print('How are your studies going?')
     response_worklife = input()
     if(predict(response_friends)<=0.3):
         friends()
@@ -216,12 +216,12 @@ try:
 except:
     name = name.split()[0]
 name = name[0].upper() + name[1:]
-print("Hi " + name + "! My name's Simson. Let's start with our session.")
-print("How are you doing?")
+print("Hello " + name + "! My name's Simon. Ready to get started?")
+print("How are you feeling today?")
 response = input()
 if (predict(response) >= 0.55):
-    print('That is good. Are you usually this happy, or are there '\
-                     'some worries that you want to talk about?')
+    print('I am glad to hear that '\
+                     'How was your day?')
     response = input()
     if (predict(response)>=0.7):
         print('You seem to be really content. Wanna sign off?')
