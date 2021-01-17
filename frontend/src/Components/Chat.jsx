@@ -44,7 +44,7 @@ const useStyles = makeStyles({
 
 const ChatEntry = (props) => {
     const playVoice = () => {if ('voice' in props && props.voice) {
-        let audio = new Audio(pure_host + props.voice)
+        let audio = new Audio(props.voice)
         audio.play()
     }}
     playVoice()
