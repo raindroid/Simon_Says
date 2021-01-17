@@ -1,0 +1,60 @@
+ /* The sidebar menu */
+ .sidenav {
+  height: 100.11%;
+  width: 20%;
+  background-color: #4A6B7B;
+  box-shadow: 0 2px 4px 0 rgba(0,0,0,0.5);
+  position:fixed;
+  top: 0; /* Stay at the top */
+  left: 0;
+  overflow-x: hidden; /* Disable horizontal scroll */
+  padding-top: 20px;
+  }
+  
+  /* The navigation menu links */
+  .sidenav a {
+    padding: 2.5rem 1.5rem 0.6rem 1.6rem;
+    text-decoration: none;
+    height: 2.22%;
+    color: #EFEAE7;
+    font-family: Montserrat;
+    font-size: 18px;
+    font-weight: 500;
+    line-height: 22px;
+    display: block;
+    text-align: left;
+
+  }
+  
+  /* When you mouse over the navigation links, change their color */
+  .sidenav a:hover {
+    color: #f1f1f1;
+  }
+  
+ .help {
+  padding-top: 3rem;
+  height: 52px;
+  width: 161px;
+  border-radius: 8px;
+  background-color: #7CB7AF;
+  /* position: absolute;
+  bottom: 3rem;
+  padding-left: 1rem; */
+
+  
+ }
+
+ .help-rect{
+  
+ }
+  /* Style page content */
+  .main {
+    margin-left: 160px; /* Same as the width of the sidebar */
+    padding: 0px 10px;
+  }
+  
+  /* On smaller screens, where height is less than 450px, change the style of the sidebar (less padding and a smaller font size) */
+  @media screen and (max-height: 450px) {
+    .sidenav {padding-top: 15px;}
+    .sidenav a {font-size: 18px;}
+  } 
