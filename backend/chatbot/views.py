@@ -57,7 +57,7 @@ def continue_chat(uid, msg, email):
         # time.sleep(0.2)
 
     finished = False
-    # print(f"Msg is {msg}")
+    print(f"Reply msg is {msg}")
     if msg is None or msg == "": 
         msg = "Bye!"
         finished = True

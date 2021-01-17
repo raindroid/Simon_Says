@@ -26,7 +26,7 @@ def get_user_info(email, uid):
         result = {}
         for doc in query_ref.stream():
             if doc.id == uid: result = doc.to_dict()
-        print(f"Found result - {result}")
+        print(f"Found result - {email}")
         if result.get('email', False):
             result.setdefault('role', 'unknown')
             result.setdefault('children', [])
