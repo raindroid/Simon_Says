@@ -10,10 +10,14 @@ const Help = () =>{
     <div className="container-fluid nav_bg" style={{width: "80%", marginRight: "0px"}}>
         <div className='row'>
             <div className="col-10 mx-auto"> 
-                <h3>{accountInfo.signed ? "Hello, " + accountInfo.name : <LoginDialog updateCount={()=>{setUpdateCount(updateCount + 1)}}/>}</h3>
+                <h3>{accountInfo.signed ? "Hello, " + accountInfo.name : ''}</h3>
     <div className="App container-fluid nav_bg">
         <div className="col-2">
           <Navbar/>
+            <div style={{bottom: "10px", position: "absolute"}}>
+
+            <LoginDialog updateCount={()=>{setUpdateCount(updateCount + 1)}}/>
+            </div>
         </div>
         <div className='row pt-5 gy-5'>
             <div className="col-12 mx-auto"> 

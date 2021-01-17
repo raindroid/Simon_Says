@@ -29,6 +29,8 @@ react_router_paths = (
     "activities",
     "goals",
     "help",
+    "404",
+    "error404"
 )
 
 for subpath in react_router_paths:

@@ -144,7 +144,7 @@ export function LoginDialog(props) {
 
   return (
     <div>
-      <Button variant="outlined" color="primary" onClick={handleClickOpen}>
+      <Button variant="outlined" color="primary" onClick={handleClickOpen} style={{ color: "black"}}>
         {accountInfo.signed ? accountInfo.name : "Sign in / sign up"}
       </Button>
       <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
@@ -213,18 +213,21 @@ class Home extends Component {
           
           <div className="col-2">
           <Navbar/>
-          <div className="row">
-            <div className="col-2" />
-            <div className="col-6 mx-auto">
-            </div>
-            <div className="col-4 mx-auto">
+            {/* <div className="row">
+              <div className="col-2" />
+              <div className="col-6 mx-auto">
+              </div>
+              <div className="col-4 mx-auto">
+              // <LoginDialog callback={()=>{this.setState({update: this.state.update + 1}); this.getActivities();}}/>
+                
+              </div>
+            </div> */}
+            <div style={{bottom: "10px", position: "absolute"}}>
+
             <LoginDialog callback={()=>{this.setState({update: this.state.update + 1}); this.getActivities();}}/>
-              
             </div>
-          </div>
           </div> 
          
-            {/* <LoginDialog /> */}
 
           <div className="row pt-5 gy-5">
             <div className="col-2" />
@@ -235,9 +238,9 @@ class Home extends Component {
             </div>
 
             <div className="col-4 mx-auto date-block-section overflow-hidden">
-            <p className="today-is"> Today is {moment(new Date().toLocaleString()).format("dddd")}</p>
-            <p className="time">{moment(this.state.date.toLocaleString()).format("LTS")} </p>
-              {/* <p className="today-is"> Today is {formatDate(new Date(), "dddd hh:mmtt d MMM yyyy")}</p> */}
+            {/* <p className="today-is"> Today is {moment(new Date().toLocaleString()).format("dddd")}</p>
+            <p className="time">{moment(this.state.date.toLocaleString()).format("LTS")} </p> */}
+              <p className="today-is"> Today is {formatDate(new Date(), "dddd hh:mmtt d MMM yyyy")}</p>
               {/* <p className="time">{moment(this.state.date.toLocaleString()).format("LTS")} </p> */}
               {this.callMe()}
             </div>
@@ -253,7 +256,7 @@ class Home extends Component {
               <h3>Next Activity</h3>
               <div>
                 {Object.keys(this.state.schedules).map((key, index)=>  
-                  {return <p><b>{this.state.schedules[key].Title}</b> <br/>Location: {this.state.schedules[key].location} <br/>{formatDate(new Date(this.state.schedules[key].startTime), "dddd hh:mmtt d MMM yyyy")} - {formatDate(new Date(this.state.schedules[key].endTime), "dddd hh:mmtt d MMM yyyy")}] </p>})
+                  {return <p><b>{this.state.schedules[key].Title}</b> <br/>Location: {this.state.schedules[key].location} <br/>{formatDate(new Date(this.state.schedules[key].startTime), "dddd hh:mmtt d MMM")} - {formatDate(new Date(this.state.schedules[key].endTime), "dddd hh:mmtt d MMM")}] </p>})
                 }
               </div>
             </div>
