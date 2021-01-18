@@ -17,7 +17,7 @@ chatTable = {}
 def init_chat(uid):
     if uid.strip() == "": return ({"msg": "missing uid", "status": "ERROR"})
     pid = chatManager.create_new()
-    if pid is False or pid is None: return ({"msg": "failed to create a new chat", "status": "FAILED"})
+    if pid is False or pid is None: return ({"msg": "Failed to create a new chat! Server is busy. Try again later", "status": "FAILED"})
     if chatTable.get(uid, False) is not False:
         chatManager.kill(chatTable[uid])
     chatTable[uid] = pid
@@ -33,7 +33,7 @@ def continue_chat(uid, msg, email):
     if uid.strip() == "": return ({"msg": "missing uid", "status": "ERROR"})
     if msg.strip() == "": return ({"msg": "empty message", "status": "ERROR"})
     pid = chatTable.get(uid, False)
-    if pid is False or pid is None: return ({"msg": "failed to find the old caht", "status": "FAILED"})
+    if pid is False or pid is None: return ({"msg": "failed to find the old chat", "status": "FAILED"})
     back = chatManager.send_msg(pid, msg)
     msg = chatManager.read_msg(pid)
 

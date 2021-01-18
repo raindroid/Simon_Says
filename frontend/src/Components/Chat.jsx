@@ -43,11 +43,15 @@ const useStyles = makeStyles({
 });
 
 const ChatEntry = (props) => {
+    const [init, setInit] = useState(false)
     const playVoice = () => {if ('voice' in props && props.voice) {
         let audio = new Audio(pure_host + props.voice)
         audio.play()
     }}
-    playVoice()
+    if (!init) {
+        playVoice()
+        setInit(true)
+    }
     return (<Grid container>
         <Grid item xs={12}>
             <ListItemText align={props.align} primary={props.text} ></ListItemText>{('voice' in props && props.voice) && <VolumeUpIcon onClick={playVoice}/>}
@@ -69,15 +73,22 @@ const Chat = () => {
     setWait(true)
     getUserInfo(accountInfo, "init_chat", data=>{
         setWait(false)
-        const {msg, voice, status} = data
-        if (status != "OK") return;
         let today = new Date();
+        const {msg, voice, status} = data
         let new_chat = {
             align: "left",
             time: today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds(),
             voice: voice,
             text: msg
         }
+        if (status != "OK") {
+            new_chat = {
+                align: "left",
+                time: today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds(),
+                text: status + ": " + msg
+            }
+        }
+        
         let chat = [new_chat]
         console.log(chat)
         setChatHistory(chat)
